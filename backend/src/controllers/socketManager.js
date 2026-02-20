@@ -5,9 +5,18 @@ let messages = {};
 let timeOnline = {};
 
 export const connectToSocket = (server) => {
-  const io = new Server(server);
+  const io = new Server(server, {
+    cors: {
+        origin: "http://localhost:5173",
+        methods: ["GET", "POST"],
+        credentials: true
+    }
+  });
 
   io.on("connection", (socket) => {
+
+    console.log("Socket connected:", socket.id);
+
     socket.on("join-call", (path) => {
       if (connections[path] === undefined) {
         connections[path] = [];
@@ -52,7 +61,7 @@ export const connectToSocket = (server) => {
                 messages[matchingRoom] = [];
             }
             messages[matchingRoom].push({'sender': sender, "data": data, "scoket-id-sender": socket.id});
-            console.log("message", key, ":", sender, data);
+            console.log("message", matchingRoom, ":", sender, data);
             connections[matchingRoom].forEach(element => {
                 io.to(element).emit("chat-message", data, sender, socket.id)
             });
