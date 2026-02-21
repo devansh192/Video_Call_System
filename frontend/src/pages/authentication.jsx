@@ -73,7 +73,7 @@ export default function Authentication() {
           sm={4}
           md={7}
           sx={{
-            backgroundImage: `url${nature}`,
+            backgroundImage: "url(https://source.unsplash.com/random/1600x900/?technology,video,meeting)",
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
             backgroundPosition: "center",
