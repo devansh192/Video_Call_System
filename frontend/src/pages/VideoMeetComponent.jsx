@@ -127,8 +127,6 @@ export default function VideoMeetComponent() {
             console.log("SET STATE HAS ", video, audio);
 
         }
-
-
     }, [video, audio])
     let getMedia = () => {
         setVideo(videoAvailable);
@@ -383,11 +381,11 @@ export default function VideoMeetComponent() {
     }
 
     const handleVideo = () => {
-        window.localStream.getVideoTracks().forEach(track => {
-        track.enabled = !track.enabled;
-        });
-        setVideo(prev => !prev);
-        //setVideo(!video);
+        // window.localStream.getVideoTracks().forEach(track => {
+        // track.enabled = !track.enabled;
+        // });
+        // setVideo(prev => !prev);
+        setVideo(!video);
     };
     const handleAudio = () => {
         window.localStream.getAudioTracks().forEach(track => {
