@@ -15,7 +15,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { AuthContext } from "../contexts/AuthContext";
 import { Snackbar } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import nature from "../assets/nature1.jpg";
+import authBg from "../assets/nature1.jpg";
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
@@ -69,11 +69,12 @@ export default function Authentication() {
         <CssBaseline />
         <Grid
           item
-          xs={false}
+          xs={0}
           sm={4}
           md={7}
           sx={{
-            backgroundImage: "url(https://source.unsplash.com/random/1600x900/?technology,video,meeting)",
+            display: { xs: "none", sm: "block" },
+            backgroundImage: `url(${authBg})`,
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
             backgroundPosition: "center",
