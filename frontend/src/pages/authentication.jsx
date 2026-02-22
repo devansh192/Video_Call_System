@@ -64,119 +64,151 @@ export default function Authentication() {
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <Grid container component="main" sx={{ height: "100vh" }}>
-        <CssBaseline />
-        <Grid
-          item
-          xs={0}
-          sm={4}
-          md={7}
+  <ThemeProvider theme={defaultTheme}>
+    <Grid container component="main" sx={{ height: "100vh" }}>
+      <CssBaseline />
+
+      {/* LEFT IMAGE */}
+      <Grid
+        item
+        xs={0}
+        sm={4}
+        md={7}
+        sx={{
+          display: { xs: "none", sm: "block" },
+          backgroundImage: `url(${authBg})`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      />
+
+      {/* RIGHT FORM */}
+      <Grid
+        item
+        xs={12}
+        sm={8}
+        md={5}
+        component={Paper}
+        elevation={10}
+        square
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Box
           sx={{
-            display: { xs: "none", sm: "block" },
-            backgroundImage: `url(${authBg})`,
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
+            width: "100%",
+            maxWidth: 420,
+            px: 4,
+            py: 6,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
-        />
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-          <Box
+        >
+          <Avatar
             sx={{
-              my: 8,
-              mx: 4,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
+              mb: 1,
+              bgcolor: "primary.main",
+              width: 48,
+              height: 48,
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-              <LockOutlinedIcon />
-            </Avatar>
+            <LockOutlinedIcon />
+          </Avatar>
 
-            <Box sx={{ display: "flex", gap: 2, mt: 2, width: "100%" }}>
-              <Button
-                variant={formState === 0 ? "contained" : "outlined"}
-                onClick={() => setFormState(0)}
-                sx={{
-                  flex: 1,
-                  whiteSpace: "nowrap",
-                  textTransform: "none",
-                }}
-              >
-                Sign In
-              </Button>
+          <Typography variant="h5" fontWeight={600}>
+            {formState === 0 ? "Welcome Back" : "Create Account"}
+          </Typography>
 
-              <Button
-                variant={formState === 1 ? "contained" : "outlined"}
-                onClick={() => setFormState(1)}
-                sx={{
-                  flex: 1,
-                  whiteSpace: "nowrap",
-                  textTransform: "none",
-                }}
-              >
-                Sign Up
-              </Button>
-            </Box>
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            sx={{ mb: 3 }}
+          >
+            {formState === 0
+              ? "Sign in to continue"
+              : "Register to get started"}
+          </Typography>
 
-            <Box component="form" noValidate sx={{ mt: 1 }}>
-              {formState === 1 ? (
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="username"
-                  label="Full Name"
-                  name="username"
-                  value={name}
-                  autoFocus
-                  onChange={(e) => setName(e.target.value)}
-                />
-              ) : (
-                <></>
-              )}
-
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="username"
-                label="Username"
-                name="username"
-                value={username}
-                autoFocus
-                onChange={(e) => setUsername(e.target.value)}
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                value={password}
-                type="password"
-                onChange={(e) => setPassword(e.target.value)}
-                id="password"
-              />
-
-              <p style={{ color: "red" }}>{error}</p>
-
-              <Button
-                type="button"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-                onClick={handleAuth}
-              >
-                {formState === 0 ? "Login " : "Register"}
-              </Button>
-            </Box>
+          {/* TOGGLE */}
+          <Box sx={{ display: "flex", gap: 2, mb: 3, width: "100%" }}>
+            <Button
+              fullWidth
+              variant={formState === 0 ? "contained" : "outlined"}
+              onClick={() => setFormState(0)}
+            >
+              Sign In
+            </Button>
+            <Button
+              fullWidth
+              variant={formState === 1 ? "contained" : "outlined"}
+              onClick={() => setFormState(1)}
+            >
+              Sign Up
+            </Button>
           </Box>
-        </Grid>
-      </Grid>
 
-      <Snackbar open={open} autoHideDuration={4000} message={message} />
-    </ThemeProvider>
-  );
+          {/* FORM */}
+          <Box component="form" noValidate sx={{ width: "100%" }}>
+            {formState === 1 && (
+              <TextField
+                margin="normal"
+                fullWidth
+                label="Full Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            )}
+
+            <TextField
+              margin="normal"
+              fullWidth
+              label="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+
+            <TextField
+              margin="normal"
+              fullWidth
+              label="Password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+
+            {error && (
+              <Typography
+                variant="body2"
+                color="error"
+                sx={{ mt: 1 }}
+              >
+                {error}
+              </Typography>
+            )}
+
+            <Button
+              fullWidth
+              variant="contained"
+              sx={{
+                mt: 3,
+                py: 1.2,
+                fontWeight: 600,
+              }}
+              onClick={handleAuth}
+            >
+              {formState === 0 ? "LOGIN" : "REGISTER"}
+            </Button>
+          </Box>
+        </Box>
+      </Grid>
+    </Grid>
+
+    <Snackbar open={open} autoHideDuration={4000} message={message} />
+  </ThemeProvider>
+);
 }
