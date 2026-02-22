@@ -13,7 +13,7 @@ const app = express();
 const server = createServer(app);
 const io = connectToSocket(server, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: ["http://localhost:5173", "https://callspherefrontend.onrender.com"],
     methods: ["GET", "POST"],
     allowedHeaders: ["*"],
     credentials: true 
