@@ -31,7 +31,7 @@ const MONGO_URL = process.env.MONGO_URL;
 const start = async () => {
     app.set("mongo_user")
   const connectionDB = await mongoose.connect(
-    "mongodb+srv://uniqueness1924_db_user:oLfahBRailJgmmEh@videocall.lb30hpn.mongodb.net/",
+    MONGO_URL,
   );
   console.log(`MONGO connected DB Host: ${connectionDB.connection.host}`);
   server.listen(app.get("port"), () => {
